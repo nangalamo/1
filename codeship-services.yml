@@ -1,12 +1,14 @@
-integration:
-  build: ./
-  encrypted_env_file: integration.env.encrypted
-
-test:
-  build: ./
-  encrypted_env_file: test.env.encrypted
-
-gov:
-  build:
-    context: .
-    dockerfile: Dockerfile
+- type: serial
+  name: 01
+  steps:
+  - service: 01demodockerfile
+    command: ruby --version
+  - service: 01demohub
+    command: ruby --version
+  - service: 01demodockerfiledockercompose
+    command: ls /app
+- type: serial
+  name: 02
+  steps:
+    - service: 02demo
+      command: bundle exec ruby check.rb
